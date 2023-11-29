@@ -1,0 +1,9 @@
+{
+  "name": "LethalExperience",
+  "version_number": "1.0.0",
+  "website_url": "https://github.com/stoneman2/LethalExperience",
+  "description": "Clientsided: Custom leveling system",
+  "dependencies": [
+    "BepInEx-BepInExPack-5.4.2100"
+  ]
+}
