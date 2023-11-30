@@ -12,12 +12,12 @@ using BepInEx.Configuration;
 
 namespace LethalExperience
 {
-    [BepInPlugin("Stoneman.LethalExperience", "Lethal Experience", "1.0")]
+    [BepInPlugin("Stoneman.LethalExperience", "Lethal Experience", "1.1.0")]
     public class LethalXP : BaseUnityPlugin
     {
         private const string modGUID = "Stoneman.LethalExperience";
         private const string modName = "Lethal Experience";
-        private const string modVersion = "1.0";
+        private const string modVersion = "1.1.0";
         private const string modAuthor = "Stoneman";
         internal static ConfigEntry<int> configXP;
         internal static ConfigEntry<int> configLevel;
