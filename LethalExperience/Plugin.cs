@@ -12,16 +12,17 @@ using BepInEx.Configuration;
 
 namespace LethalExperience
 {
-    [BepInPlugin("LethalExperience", "Lethal Experience", "1.0")]
-    internal class LethalXP : BaseUnityPlugin
+    [BepInPlugin("Stoneman.LethalExperience", "Lethal Experience", "1.0")]
+    public class LethalXP : BaseUnityPlugin
     {
-        public const string modGUID = "Stoneman.LethalExperience";
-        public const string modName = "Lethal Experience";
-        public const string modVersion = "1.0";
-        public const string modAuthor = "Stoneman";
+        private const string modGUID = "Stoneman.LethalExperience";
+        private const string modName = "Lethal Experience";
+        private const string modVersion = "1.0";
+        private const string modAuthor = "Stoneman";
         internal static ConfigEntry<int> configXP;
         internal static ConfigEntry<int> configLevel;
         internal static ConfigEntry<int> configProfit;
+        internal static ConfigEntry<int> configSkillpoints;
         internal static ManualLogSource Log;
         private void Awake()
         {
@@ -46,6 +47,11 @@ namespace LethalExperience
             "Profit",
             0,
             "How much profit did you make the company? Best not to touch this :)");
+
+            configSkillpoints = Config.Bind("General",
+            "Skillpoints",
+            0,
+            "How many skillpoints you have. Don't cheat now.");
         }
 
         public static void AddXP(int xp)
@@ -66,6 +72,12 @@ namespace LethalExperience
 
                 // Level up update!
                 LethalExperience.Patches.HUDManagerPatch.ShowLevelUp();
+
+                // Give a skillpoint every 5 levels.
+                if (configLevel.Value % 5 == 0)
+                {
+                    configSkillpoints.Value++;
+                }
             }
 
             // Show XP Bar!
@@ -85,6 +97,16 @@ namespace LethalExperience
         public static int GetXPRequirement()
         {
             return 100 + GetLevel() * 10;
+        }
+
+        public static int GetSkillpoints()
+        {
+            return configSkillpoints.Value;
+        }
+
+        public static void SetSkillpoints(int skillpoints)
+        {
+            configSkillpoints.Value = skillpoints;
         }
     }
 }
